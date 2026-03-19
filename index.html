@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ── Primary SEO ─────────────────────────────────────── -->
+<title>Dead Orbit Drone TM-1 | Recon & Hunter-Killer UAV Specification</title>
+<meta name="description" content="Interactive 3D specification viewer for the Dead Orbit Drone TM-1 — a carbon-titanium quad-rotor recon and hunter-killer UAV. Explore airframe, propulsion, and sensor array data.">
+<meta name="keywords" content="Dead Orbit, Drone TM-1, UAV specification, quad-rotor drone, hunter-killer drone, recon drone, 3D drone viewer, Dead Orbit GID">
+<meta name="author" content="Dead Orbit Guardian Intelligence Division">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://deadorbit.io/drone/tm1">
+
+<!-- ── Open Graph (social sharing) ────────────────────── -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dead Orbit Drone TM-1 | UAV Specification">
+<meta property="og:description" content="Interactive 3D viewer for the Dead Orbit Drone TM-1 recon and hunter-killer UAV. Carbon-titanium airframe, quad-rotor propulsion, MK.VII optical array.">
+<meta property="og:url" content="https://deadorbit.io/drone/tm1">
+<meta property="og:site_name" content="Dead Orbit">
+<meta property="og:image" content="https://deadorbit.io/og/drone-tm1.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dead Orbit Drone TM-1 matte black quad-rotor UAV">
+
+<!-- ── Twitter Card ────────────────────────────────────── -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dead Orbit Drone TM-1 | UAV Specification">
+<meta name="twitter:description" content="Interactive 3D specification viewer. Carbon-titanium airframe · quad-rotor propulsion · MK.VII optical array.">
+<meta name="twitter:image" content="https://deadorbit.io/og/drone-tm1.jpg">
+
+<!-- ── Theme colour (browser chrome) ──────────────────── -->
+<meta name="theme-color" content="#f0ede8">
+
+<!-- ── Structured data ────────────────────────────────── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Dead Orbit Drone TM-1",
+  "description": "Carbon-titanium quad-rotor recon and hunter-killer UAV with MK.VII hemispherical sensor array. 620mm arm span, 340g dry weight, IP68 rated.",
+  "brand": { "@type": "Brand", "name": "Dead Orbit" },
+  "category": "Unmanned Aerial Vehicle",
+  "additionalProperty": [
+    { "@type": "PropertyValue", "name": "Arm Span",      "value": "620mm" },
+    { "@type": "PropertyValue", "name": "Dry Weight",    "value": "340g"  },
+    { "@type": "PropertyValue", "name": "Ingress Rating","value": "IP68"  },
+    { "@type": "PropertyValue", "name": "Alloy Grade",   "value": "T6-AL" }
+  ]
+}
+</script>
+
+<!-- ── Font preconnect (eliminates render-blocking DNS) ── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<!-- ── CDN preconnect ─────────────────────────────────── -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f0ede8;
+  --ink:#1a1612;
+  --orange:#e05a00;
+  --steel:#7a8490;
+  --steel2:#c8cdd4;
+}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--ink);font-family:'DM Mono',monospace;overflow-x:hidden}
+#c{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:10}
+
+/* Annotations */
+#annot{position:fixed;inset:0;pointer-events:none;z-index:15;overflow:visible}
+.a-ln{stroke:#b0b8c4;stroke-width:.8;fill:none}
+.a-txt{fill:var(--steel);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.2px}
+.a-ci{stroke:var(--orange);stroke-width:.9;fill:none}
+.a-hi{stroke:#f07020;stroke-width:1.4;fill:none;stroke-dasharray:3 3}
+
+/* Loading */
+#loading{position:fixed;inset:0;z-index:1000;background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  will-change:opacity}
+.lt{font-size:9px;letter-spacing:5px;color:var(--steel);text-transform:uppercase}
+.track{width:160px;height:1px;background:var(--steel2)}
+.fill2{height:100%;background:var(--orange);width:0%;transition:width .15s linear}
+
+/* Content */
+#content{position:relative;z-index:20}
+section{min-height:100vh;display:flex;align-items:center;padding:0 7%;position:relative}
+section.right{justify-content:flex-end}
+section.center{justify-content:center;flex-direction:column;text-align:center}
+.tb{
+  max-width:360px;
+  background:rgba(240,237,232,.55);
+  padding:28px 32px;
+  box-shadow:0 0 60px 50px rgba(240,237,232,.55);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+.tag{font-size:8px;letter-spacing:5px;color:var(--orange);margin-bottom:20px;text-transform:uppercase}
+h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(52px,9vw,120px);
+   line-height:.85;letter-spacing:-2px;color:var(--ink)}
+h2{font-family:'Orbitron',sans-serif;font-weight:600;font-size:clamp(28px,4.5vw,58px);
+   letter-spacing:.5px;margin-bottom:14px;color:var(--ink)}
+.sub{font-size:9px;letter-spacing:4px;color:var(--steel);margin-top:14px;text-transform:uppercase}
+p{font-size:10.5px;line-height:2;color:var(--steel);margin-top:14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.stat{border-top:1px solid var(--steel2);padding-top:10px}
+.sv{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:600;line-height:1;color:var(--ink)}
+.sv em{font-size:11px;font-weight:400;color:var(--steel);font-style:normal}
+.sl{font-size:7.5px;letter-spacing:2.5px;color:var(--steel);margin-top:4px;text-transform:uppercase}
+.right .stats{direction:rtl}.right .stat{direction:ltr;text-align:right}
+
+#hint{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  font-size:8px;letter-spacing:5px;color:var(--steel);z-index:30;text-transform:uppercase;
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.2}50%{opacity:.7}}
+</style>
+</head>
+<body>
+
+<div id="loading" role="status" aria-label="Loading 3D viewer">
+  <div class="lt">Initialising TM-1 Systems</div>
+  <div class="track"><div class="fill2" id="fill"></div></div>
+  <div class="lt" id="pct">0%</div>
+</div>
+
+<!-- SVG annotations -->
+<svg id="annot" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g id="g-span" opacity="0">
+    <line id="sl1" class="a-ln"/><line id="stl" class="a-ln"/><line id="str" class="a-ln"/>
+    <text id="sv" class="a-txt" text-anchor="middle"></text>
+    <text id="slb" class="a-txt" text-anchor="middle" dy="15">ARM SPAN</text>
+  </g>
+  <g id="g-body" opacity="0">
+    <circle id="bcirc" class="a-ci"/>
+    <text id="bv" class="a-txt" text-anchor="middle"></text>
+    <text id="blb" class="a-txt" text-anchor="middle" dy="15">CHASSIS Ø</text>
+  </g>
+  <g id="g-sens" opacity="0">
+    <circle id="scirc" class="a-ci"/>
+    <line id="sln" class="a-ln"/>
+    <text id="senv" class="a-txt">MK.VII OPTICAL</text>
+    <text id="senlb" class="a-txt" dy="15">SENSOR ARRAY</text>
+  </g>
+  <g id="g-rot" opacity="0">
+    <circle id="rc0" class="a-hi"/><circle id="rc1" class="a-hi"/>
+    <circle id="rc2" class="a-hi"/><circle id="rc3" class="a-hi"/>
+    <text id="rotv" class="a-txt" text-anchor="middle">×12 BLADES // COUNTER-ROTATING</text>
+  </g>
+</svg>
+
+<main id="content">
+  <section id="s0" aria-labelledby="hero-heading">
+    <div class="tb" id="tb0" style="opacity:0;transform:translateY(24px)">
+      <div class="tag">// Classified — Dead Orbit GID</div>
+      <h1 id="hero-heading">DEAD<br>ORBIT<br>DRONE</h1>
+      <div class="sub">Model TM-1 · Recon &amp; Hunter-Killer</div>
+    </div>
+  </section>
+
+  <section id="s1" aria-labelledby="s1-heading">
+    <div class="tb" id="tb1" style="opacity:0;transform:translateY(24px)">
+      <div class="tag">01 // Chassis</div>
+      <h2 id="s1-heading">AIRFRAME</h2>
+      <p>Octagonal carbon-titanium composite. EMP hardened. Sustained operation at 12,000m altitude.</p>
+      <div class="stats">
+        <div class="stat"><div class="sv">180<em>mm</em></div><div class="sl">Body Diameter</div></div>
+        <div class="stat"><div class="sv">340<em>g</em></div><div class="sl">Dry Weight</div></div>
+        <div class="stat"><div class="sv">IP68</div><div class="sl">Ingress Rating</div></div>
+        <div class="stat"><div class="sv">T6<em>-AL</em></div><div class="sl">Alloy Grade</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2" class="right" aria-labelledby="s2-heading">
+    <div class="tb" id="tb2" style="opacity:0;transform:translateY(24px)">
+      <div class="tag" style="text-align:right">02 // Propulsion</div>
+      <h2 id="s2-heading" style="text-align:right">ROTORS</h2>
+      <p style="text-align:right">X-frame quad-rotor, counter-rotating pairs. Three-blade carbon props. Silent mode &lt;28dB at 100m.</p>
+      <div class="stats">
+        <div class="stat"><div class="sv">620<em>mm</em></div><div class="sl">Arm Span</div></div>
+        <div class="stat"><div class="sv">12<em>×</em></div><div class="sl">Total Blades</div></div>
+        <div class="stat"><div class="sv">84<em>m/s</em></div><div class="sl">Tip Speed</div></div>
+        <div class="stat"><div class="sv">28<em>dB</em></div><div class="sl">Silent Mode</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3" aria-labelledby="s3-heading">
+    <div class="tb" id="tb3" style="opacity:0;transform:translateY(24px)">
+      <div class="tag">03 // Optics</div>
+      <h2 id="s3-heading">SENSOR<br>ARRAY</h2>
+      <p>MK.VII hemispherical pod. Thermal, visual, quantum-optical. 360° coverage. Lock in under 0.3s.</p>
+      <div class="stats">
+        <div class="stat"><div class="sv">360<em>°</em></div><div class="sl">Coverage</div></div>
+        <div class="stat"><div class="sv">0.3<em>s</em></div><div class="sl">Lock Time</div></div>
+        <div class="stat"><div class="sv">8K<em>px</em></div><div class="sl">Resolution</div></div>
+        <div class="stat"><div class="sv">3<em>×</em></div><div class="sl">Spectrum Modes</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4" class="center" aria-labelledby="s4-heading">
+    <div class="tb" id="tb4" style="max-width:520px;opacity:0;transform:translateY(24px)">
+      <div class="tag" style="text-align:center">// Dead Orbit · Guardian Intelligence Division</div>
+      <h2 id="s4-heading">CLASSIFIED</h2>
+      <p style="text-align:center">All TM-1 units remain property of Dead Orbit.<br>Unauthorised possession carries maximum penalty<br>under the New Monarchy Accords.</p>
+      <p style="text-align:center;color:var(--steel2);margin-top:28px;font-size:8.5px">SPEC DOC #TR-7741-B // EYES ONLY</p>
+    </div>
+  </section>
+</main>
+
+<div id="hint" aria-hidden="true">Scroll to explore</div>
+
+<!-- Defer all heavy scripts so HTML/CSS paint first -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js" defer></script>
+<script>
+/* Wait until all deferred scripts have run */
+window.addEventListener('load', () => {
+gsap.registerPlugin(ScrollTrigger);
+
+/* ─── Materials ─────────────────────────────────────────── */
+function makeMats() {
+  const std = (c, met, rgh, em, emI) => {
+    const m = new THREE.MeshStandardMaterial({ color: c, metalness: met, roughness: rgh });
+    if (em) { m.emissive = new THREE.Color(em); m.emissiveIntensity = emI || 0.5; }
+    return m;
+  };
+  return {
+    shell:   std(0x1a1a1a, 0.00, 0.82),
+    panel:   std(0x111111, 0.00, 0.90),
+    white:   std(0x222222, 0.00, 0.78),
+    chrome:  std(0x2a2a2a, 0.85, 0.12),
+    orange:  std(0xe05a00, 0.10, 0.50),
+    orBrt:   std(0xff7733, 0.08, 0.40),
+    rubber:  std(0x080808, 0.00, 0.98),
+    lens:    (() => new THREE.MeshPhysicalMaterial({
+               color:0x050d14, metalness:0, roughness:0,
+               transmission:.80, ior:1.5, transparent:true, opacity:.92 }))(),
+    glow:    std(0xff7722, 0.0, 0.3, 0xff5500, 0.8),
+    glowB:   std(0x66bbff, 0.0, 0.3, 0x3399ff, 0.9),
+    blade:   std(0x0d0d0d, 0.00, 0.95),
+    nacelle: std(0x1c1c1c, 0.00, 0.80),
+    vent:    std(0x141414, 0.00, 0.88),
+    dark:    std(0x0a0a0a, 0.00, 0.94),
+  };
+}
+
+/* ─── Geometry helpers ──────────────────────────────────── */
+const cyl = (rt,rb,h,s,mat) => new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,s,1,false),mat);
+const sph = (r,ws,hs,mat)   => new THREE.Mesh(new THREE.SphereGeometry(r,ws,hs),mat);
+const bx  = (w,h,d,mat)     => new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+const tor = (r,t,rs,ts,mat) => new THREE.Mesh(new THREE.TorusGeometry(r,t,rs,ts),mat);
+const pos = (m,x,y,z) => { m.position.set(x,y,z); return m; };
+const rot = (m,x,y,z) => { m.rotation.set(x,y||0,z||0); return m; };
+
+/* ─── BUILD DRONE ───────────────────────────────────────── */
+function buildDrone() {
+  const M = makeMats();
+  const root = new THREE.Group();
+
+  root.add(pos(cyl(0.80,0.88,0.28,8,M.shell),0,0,0));
+  root.add(rot(pos(tor(0.80,0.028,7,24,M.orange),0,0.02,0),Math.PI/2));
+  root.add(rot(pos(tor(0.72,0.018,6,24,M.chrome),0,-0.10,0),Math.PI/2));
+
+  for(let i=0;i<8;i++){
+    const a=i*(Math.PI/4)+Math.PI/8;
+    const p=bx(0.20,0.22,0.032,M.panel);
+    p.position.set(Math.cos(a)*0.82,0,Math.sin(a)*0.82); p.rotation.y=-a; root.add(p);
+    const rv=sph(0.014,5,5,M.chrome); rv.position.set(Math.cos(a)*0.845,0.07,Math.sin(a)*0.845); root.add(rv);
+    const rv2=sph(0.014,5,5,M.chrome); rv2.position.set(Math.cos(a)*0.845,-0.07,Math.sin(a)*0.845); root.add(rv2);
+  }
+  for(let i=0;i<4;i++){
+    const a=i*(Math.PI/2), vg=new THREE.Group(); vg.rotation.y=-a; root.add(vg);
+    const vb=bx(0.22,0.10,0.040,M.vent); pos(vb,0,0.06,0.84); vg.add(vb);
+    for(let s=0;s<4;s++){ const sl=bx(0.20,0.012,0.036,M.dark); sl.position.set(0,(s-1.5)*0.022,0.002); vb.add(sl); }
+  }
+
+  root.add(rot(pos(tor(0.64,0.016,6,24,M.chrome),0,0.22,0),Math.PI/2));
+  root.add(pos(cyl(0.64,0.74,0.16,8,M.white),0,0.22,0));
+  root.add(pos(cyl(0.36,0.58,0.20,10,M.shell),0,0.38,0));
+  const cap=new THREE.Mesh(new THREE.SphereGeometry(0.36,12,8,0,Math.PI*2,0,Math.PI/2),M.white);
+  root.add(pos(cap,0,0.48,0));
+  root.add(rot(pos(tor(0.36,0.018,6,20,M.orange),0,0.48,0),Math.PI/2));
+
+  root.add(pos(cyl(0.072,0.095,0.075,8,M.shell),0,0.505,0));
+  root.add(pos(cyl(0.022,0.032,0.54,8,M.chrome),0,0.795,0));
+  root.add(pos(bx(0.32,0.016,0.016,M.chrome),0,0.90,0));
+  [-0.16,0.16].forEach(x=>root.add(pos(sph(0.020,7,7,M.glowB),x,0.90,0)));
+  root.add(pos(sph(0.040,8,8,M.glowB),0,1.076,0));
+  root.add(rot(pos(cyl(0.008,0.012,0.22,6,M.chrome),0.15,0.68,0.18),0,0,0.18));
+
+  const rotorGroups=[], tipPositions=[];
+  for(let i=0;i<4;i++){
+    const ang=i*(Math.PI/2)+Math.PI/4, TIP=1.72;
+    const armG=new THREE.Group(); armG.rotation.y=-ang; root.add(armG);
+
+    armG.add(rot(pos(cyl(0.052,0.098,TIP,10,M.shell),0,0,TIP*.5),Math.PI/2));
+    armG.add(pos(bx(0.044,0.032,TIP*.88,M.panel),0,-0.060,TIP*.46));
+    armG.add(rot(pos(cyl(0.18,0.22,0.25,8,M.panel),0,0,0.26),Math.PI/2));
+    armG.add(pos(bx(0.030,0.022,TIP*.55,M.orange),0,0.072,TIP*.52));
+    armG.add(rot(pos(tor(0.08,0.018,5,10,M.chrome),0,0,TIP*.58),Math.PI/2));
+
+    const nac=new THREE.Group(); pos(nac,0,0,TIP); armG.add(nac);
+    nac.add(pos(cyl(0.15,0.12,0.22,12,M.nacelle),0,0.135,0));
+    nac.add(pos(cyl(0.158,0.158,0.046,12,M.chrome),0,0.255,0));
+    nac.add(pos(cyl(0.12,0.148,0.052,12,M.panel),0,0.014,0));
+    for(let s=0;s<6;s++){
+      const sa=s*(Math.PI/3), fin=bx(0.012,0.10,0.016,M.dark);
+      fin.position.set(Math.cos(sa)*0.11,0.135,Math.sin(sa)*0.11); fin.rotation.y=-sa; nac.add(fin);
+    }
+    nac.add(rot(pos(tor(0.48,0.028,8,30,M.shell),0,0.22,0),Math.PI/2));
+    nac.add(rot(pos(tor(0.34,0.016,6,24,M.panel),0,0.22,0),Math.PI/2));
+    for(let s=0;s<4;s++){
+      const sa=s*(Math.PI/2)+Math.PI/4, strut=bx(0.016,0.020,0.148,M.panel);
+      strut.position.set(Math.cos(sa)*0.41,0.22,Math.sin(sa)*0.41); strut.rotation.y=-sa; nac.add(strut);
+    }
+
+    const spinner=new THREE.Group(); pos(spinner,0,0.268,0); nac.add(spinner);
+    spinner.add(pos(cyl(0.060,0.072,0.072,10,M.rubber),0,0.018,0));
+    spinner.add(pos(sph(0.040,8,6,M.chrome),0,0.058,0));
+
+    for(let b=0;b<3;b++){
+      const bladeG=new THREE.Group(); bladeG.rotation.y=b*(Math.PI*2/3); spinner.add(bladeG);
+      [{z:.065,w:.068,h:.012},{z:.155,w:.062,h:.010},{z:.245,w:.050,h:.008},{z:.330,w:.034,h:.006},{z:.405,w:.018,h:.004}]
+      .forEach((s,si)=>{
+        const seg=bx(s.w,s.h,0.096,M.blade);
+        seg.position.set(0,0.022,s.z); seg.rotation.x=-0.20; seg.rotation.z=s.z*.10; seg.rotation.y=si*.04;
+        bladeG.add(seg);
+      });
+    }
+    rotorGroups.push(spinner);
+    tipPositions.push(new THREE.Vector3(Math.cos(ang)*TIP,0,Math.sin(ang)*TIP));
+  }
+
+  [Math.PI/2,-Math.PI/2].forEach(ang=>{
+    const tg=new THREE.Group(); tg.rotation.y=ang; root.add(tg);
+    tg.add(rot(pos(cyl(0.058,0.080,0.30,8,M.shell),0,-0.065,0.90),Math.PI/2));
+    tg.add(rot(pos(cyl(0.035,0.058,0.09,8,M.panel),0,-0.065,1.06),Math.PI/2));
+    tg.add(pos(sph(0.028,6,6,M.glow),0,-0.065,1.107));
+    tg.add(pos(bx(0.055,0.055,0.22,M.panel),0,-0.015,0.80));
+  });
+
+  root.add(pos(cyl(0.072,0.165,0.19,8,M.shell),0,-0.24,0));
+  const podG=new THREE.Group(); pos(podG,0,-0.46,0); root.add(podG);
+  const podShell=new THREE.Mesh(new THREE.SphereGeometry(0.245,18,14),M.white); podShell.scale.y=0.78; podG.add(podShell);
+  podG.add(rot(tor(0.245,0.022,8,28,M.orange),Math.PI/2));
+  const podCap=new THREE.Mesh(new THREE.SphereGeometry(0.245,16,10,0,Math.PI*2,0,Math.PI/2),M.panel);
+  podCap.scale.y=0.78; rot(podCap,Math.PI); podG.add(podCap);
+  const lensDome=new THREE.Mesh(new THREE.SphereGeometry(0.155,14,10,0,Math.PI*2,0,Math.PI/2),M.lens);
+  lensDome.rotation.x=Math.PI; pos(lensDome,0,-0.14,0); podG.add(lensDome);
+  podG.add(rot(pos(tor(0.155,0.018,7,20,M.chrome),0,-0.14,0),Math.PI/2));
+  for(let i=0;i<6;i++){
+    const pa=(i/6)*Math.PI*2, port=sph(0.028,7,7,M.lens);
+    port.position.set(Math.cos(pa)*0.21,0.02,Math.sin(pa)*0.21); podG.add(port);
+    const pr=tor(0.028,0.007,5,12,M.chrome); pr.rotation.x=Math.PI/2;
+    pr.position.set(Math.cos(pa)*0.21,0.02,Math.sin(pa)*0.21); podG.add(pr);
+  }
+
+  for(let i=0;i<4;i++){
+    const ga=i*(Math.PI/2)+Math.PI/4, legG=new THREE.Group(); legG.rotation.y=-ga; root.add(legG);
+    legG.add(rot(pos(cyl(0.022,0.030,0.35,6,M.chrome),0,-0.22,0.80),0.22));
+    legG.add(rot(pos(cyl(0.020,0.028,0.22,6,M.rubber),0,-0.40,0.90),Math.PI/2));
+    legG.add(pos(sph(0.030,6,6,M.rubber),0,-0.40,1.01));
+  }
+
+  root.rotorGroups=rotorGroups;
+  root.tipPositions=tipPositions;
+  root.sensorPos=new THREE.Vector3(0,-0.60,0);
+  return root;
+}
+
+/* ─── SCENE ─────────────────────────────────────────────── */
+function init(drone) {
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.2;
+  renderer.domElement.id='c';
+  document.body.appendChild(renderer.domElement);
+
+  const scene=new THREE.Scene();
+  const camMain=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,0.1,100);
+  camMain.position.set(0,1.5,5.8); camMain.lookAt(0,0.1,0);
+
+  scene.add(new THREE.AmbientLight(0xffffff,0.45));
+  const key=new THREE.DirectionalLight(0xfff5e8,3.2);
+  key.position.set(4,7,5); key.castShadow=true;
+  key.shadow.mapSize.set(512,512); // halved from 1024 — saves VRAM
+  scene.add(key);
+  const fill=new THREE.DirectionalLight(0xe8f4ff,0.9); fill.position.set(-6,2,-4); scene.add(fill);
+  const rim=new THREE.DirectionalLight(0xffffff,2.2); rim.position.set(1,-3,7); scene.add(rim);
+  const ground=new THREE.DirectionalLight(0xfff0e0,0.30); ground.position.set(0,-6,0); scene.add(ground);
+  scene.add(new THREE.HemisphereLight(0xfff8f2,0xe8ebe0,0.40));
+  const pt=new THREE.PointLight(0xffe0c0,0.5,10); pt.position.set(0.5,-2,2.5); scene.add(pt);
+
+  const mg=new THREE.Group(); mg.add(drone); mg.position.x=8; scene.add(mg);
+
+  /* RAF loop — throttle to 60fps cap */
+  let last=0;
+  function tick(now){
+    requestAnimationFrame(tick);
+    if(now-last<14) return; // ~70fps cap avoids unnecessary overdraw
+    last=now;
+    const t=now*.001;
+    drone.rotorGroups.forEach((g,i)=>{g.rotation.y+=(i%2?-1:1)*.14;});
+    mg.position.y=Math.sin(t*.65)*.045;
+    renderer.setScissorTest(false);
+    renderer.setClearColor(0,0);
+    renderer.render(scene,camMain);
+    updateAnnot();
+  }
+  requestAnimationFrame(tick);
+
+  /* Annotations */
+  function toS(v3){
+    const v=v3.clone().project(camMain);
+    return{x:(v.x*.5+.5)*innerWidth,y:(-v.y*.5+.5)*innerHeight};
+  }
+  function setLn(id,x1,y1,x2,y2){
+    const el=document.getElementById(id);
+    el.setAttribute('x1',x1);el.setAttribute('y1',y1);el.setAttribute('x2',x2);el.setAttribute('y2',y2);
+  }
+  function updateAnnot(){
+    scene.updateMatrixWorld();
+    const t0=drone.tipPositions[0].clone(); mg.localToWorld(t0);
+    const t2=drone.tipPositions[2].clone(); mg.localToWorld(t2);
+    const p0=toS(t0),p2=toS(t2),ly=Math.min(p0.y,p2.y)-52,smx=(p0.x+p2.x)/2;
+    setLn('sl1',p0.x,ly,p2.x,ly); setLn('stl',p0.x,ly-9,p0.x,ly+9); setLn('str',p2.x,ly-9,p2.x,ly+9);
+    const sv=document.getElementById('sv'); sv.setAttribute('x',smx); sv.setAttribute('y',ly-12); sv.textContent='620 mm';
+    document.getElementById('slb').setAttribute('x',smx); document.getElementById('slb').setAttribute('y',ly-12);
+
+    const bw=new THREE.Vector3(); mg.getWorldPosition(bw);
+    const pb=toS(bw),br=85,bc=document.getElementById('bcirc');
+    bc.setAttribute('cx',pb.x); bc.setAttribute('cy',pb.y); bc.setAttribute('r',br);
+    const bv=document.getElementById('bv'); bv.setAttribute('x',pb.x); bv.setAttribute('y',pb.y-br-12); bv.textContent='Ø 180 mm';
+    document.getElementById('blb').setAttribute('x',pb.x); document.getElementById('blb').setAttribute('y',pb.y-br-12);
+
+    const sw=drone.sensorPos.clone(); drone.localToWorld(sw);
+    const ps=toS(sw),sr=38,scc=document.getElementById('scirc');
+    scc.setAttribute('cx',ps.x); scc.setAttribute('cy',ps.y); scc.setAttribute('r',sr);
+    setLn('sln',ps.x+sr,ps.y+5,ps.x+sr+72,ps.y+38);
+    document.getElementById('senv').setAttribute('x',ps.x+sr+76); document.getElementById('senv').setAttribute('y',ps.y+40);
+    document.getElementById('senlb').setAttribute('x',ps.x+sr+76); document.getElementById('senlb').setAttribute('y',ps.y+40);
+
+    ['rc0','rc1','rc2','rc3'].forEach((id,i)=>{
+      const tw=drone.tipPositions[i].clone(); mg.localToWorld(tw); const pt=toS(tw),rc=document.getElementById(id);
+      rc.setAttribute('cx',pt.x); rc.setAttribute('cy',pt.y); rc.setAttribute('r',48);
+    });
+    const pt0=drone.tipPositions[0].clone(); mg.localToWorld(pt0); const pp0=toS(pt0),rv=document.getElementById('rotv');
+    rv.setAttribute('x',pp0.x); rv.setAttribute('y',pp0.y-60);
+  }
+
+  /* GSAP scroll */
+  const canvas=renderer.domElement;
+  gsap.set(canvas,{x:'55%',autoAlpha:0});
+  const gIn =id=>gsap.to(document.getElementById(id),{opacity:1,duration:.4});
+  const gOut=id=>gsap.to(document.getElementById(id),{opacity:0,duration:.3});
+
+  gsap.timeline({scrollTrigger:{trigger:'#s0',start:'top top',end:'bottom top',scrub:1.2}})
+  .to(canvas,{x:'0%',autoAlpha:1,duration:.7},0)
+  .to(mg.position,{x:1.8,duration:.7},0)
+  .to('#tb0',{opacity:1,y:0,duration:.4},.1)
+  .to('#tb0',{opacity:0,y:-18,duration:.3},.75);
+  ScrollTrigger.create({trigger:'#s0',start:'top 80%',once:true,
+    onEnter(){gsap.to('#tb0',{opacity:1,y:0,duration:.6,ease:'power2.out'});}});
+
+  ScrollTrigger.create({trigger:'#s1',start:'top 65%',once:true,onEnter(){
+    gsap.to('#tb1',{opacity:1,y:0,duration:.6,ease:'power2.out'});
+    setTimeout(()=>gIn('g-body'),350);
+  }});
+  gsap.timeline({scrollTrigger:{trigger:'#s1',start:'top top',end:'bottom top',scrub:1.2}})
+  .to(mg.position,{x:2.1,duration:.5},0).to(mg.rotation,{y:.55,duration:.8},0)
+  .to('#tb1',{opacity:0,y:-18,duration:.3},.75).call(()=>gOut('g-body'),null,.78);
+
+  ScrollTrigger.create({trigger:'#s2',start:'top 65%',once:true,onEnter(){
+    gsap.to('#tb2',{opacity:1,y:0,duration:.6,ease:'power2.out'});
+    setTimeout(()=>gIn('g-rot'),250);
+  }});
+  gsap.timeline({scrollTrigger:{trigger:'#s2',start:'top top',end:'bottom top',scrub:1.2}})
+  .to(mg.position,{x:-2.1,duration:.5},0).to(mg.rotation,{y:Math.PI*1.05,x:-0.28,duration:.8},0)
+  .to('#tb2',{opacity:0,y:-18,duration:.3},.75).call(()=>gOut('g-rot'),null,.78);
+
+  ScrollTrigger.create({trigger:'#s3',start:'top 65%',once:true,onEnter(){
+    gsap.to('#tb3',{opacity:1,y:0,duration:.6,ease:'power2.out'});
+    setTimeout(()=>gIn('g-sens'),300);
+  }});
+  gsap.timeline({scrollTrigger:{trigger:'#s3',start:'top top',end:'bottom top',scrub:1.2}})
+  .to(mg.position,{x:1.8,duration:.5},0).to(mg.rotation,{y:Math.PI*1.85,x:.72,duration:.8},0)
+  .to('#tb3',{opacity:0,y:-18,duration:.3},.75).call(()=>gOut('g-sens'),null,.78);
+
+  ScrollTrigger.create({trigger:'#s4',start:'top 65%',once:true,
+    onEnter(){gsap.to('#tb4',{opacity:1,y:0,duration:.7,ease:'power2.out'});}});
+  gsap.timeline({scrollTrigger:{trigger:'#s4',start:'top top',end:'bottom top',scrub:1.2}})
+  .to(mg.rotation,{y:Math.PI*2.5,x:0,duration:.5},0)
+  .to(mg.position,{x:0,y:0,duration:.4},0)
+  .to(mg.position,{y:14,duration:.35},.65)
+  .to(canvas,{autoAlpha:0,duration:.3},.72);
+
+  ScrollTrigger.create({trigger:'#content',start:'5% top',
+    onEnter(){gsap.to('#hint',{opacity:0,duration:.5});}});
+
+  window.addEventListener('resize',()=>{
+    renderer.setSize(innerWidth,innerHeight);
+    camMain.aspect=innerWidth/innerHeight;
+    camMain.updateProjectionMatrix();
+  },{passive:true});
+}
+
+/* Startup */
+const drone=buildDrone();
+let prog=0;
+const fillEl=document.getElementById('fill'), pctEl=document.getElementById('pct');
+const timer=setInterval(()=>{
+  prog+=Math.random()*22+5;
+  if(prog>=100){
+    prog=100; clearInterval(timer);
+    fillEl.style.width='100%'; pctEl.textContent='100%';
+    setTimeout(()=>{
+      gsap.to('#loading',{autoAlpha:0,duration:.5,onComplete(){
+        document.getElementById('loading').remove();
+        init(drone);
+      }});
+    },300);
+  }
+  fillEl.style.width=prog+'%';
+  pctEl.textContent=Math.floor(prog)+'%';
+},80);
+
+}); // end window load
+</script>
+</body>
+</html>
